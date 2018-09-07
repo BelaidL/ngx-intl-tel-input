@@ -14,14 +14,19 @@ export class NgxIntlTelInputComponent implements OnInit {
   @Input() preferredCountries: Array<string> = [];
   @Output() valueChange: EventEmitter<string> = new EventEmitter<string>();
 
+  dropDownMenu = false;
   phone_number = '';
   allCountries: Array<Country> = [];
   preferredCountriesInDropDown: Array<Country> = [];
   selectedCountry: Country = new Country();
   constructor(
-      private countryCodeData: CountryCode
+    private countryCodeData: CountryCode
   ) {
     this.fetchCountryData();
+  }
+
+  dropDownMenuSwitchUpDown() {
+    this.dropDownMenu = !this.dropDownMenu;
   }
 
   ngOnInit() {
@@ -52,6 +57,7 @@ export class NgxIntlTelInputComponent implements OnInit {
       this.valueChange.emit(this.value);
     }
     el.focus();
+    this.dropDownMenuSwitchUpDown();
   }
 
   public onInputKeyPress(event): void {
